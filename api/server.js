@@ -1,15 +1,11 @@
 const express = require("express");
 const middleware = require("./middleware");
-// const routes = require("./routes.index");
+const routes = require("./routes/routes.index");
 
 const server = express();
 
 server.use(express.json());
 middleware(server);
-// routes(server);
-
-server.get("/", (req, res) => {
-  res.status(200).json({ message: "Did this work??" });
-});
+routes(server);
 
 module.exports = server;
