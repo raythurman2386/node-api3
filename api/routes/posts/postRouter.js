@@ -1,5 +1,8 @@
 const express = require("express");
-
+const {
+  validatePost,
+  validatePostId
+} = require("../../middleware/validatePost");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -7,22 +10,16 @@ router.get("/", (req, res) => {
   res.status(200).json({ message: "Post Works!" });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", validatePostId(), (req, res) => {
   // do your magic!
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", validatePostId(), (req, res) => {
   // do your magic!
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", validatePostId(), validatePost(), (req, res) => {
   // do your magic!
 });
-
-// custom middleware
-
-function validatePostId(req, res, next) {
-  // do your magic!
-}
 
 module.exports = router;

@@ -8,15 +8,17 @@ const router = express.Router();
 
 router.post("/", validateUser(), (req, res) => {
   // do your magic!
-  res.json(req.body);
+  db.insert(req.body)
+    .then(user => {
+      req.newUser = user;
+      next();
+    })
+    .catch(err => next(err));
 });
 
 router.post("/:id/posts", validateUserId(), (req, res) => {
   // TODO
   // do your magic!
-  if (!req.body.text) {
-    res.status(404).json({ message: "Please supply a name" });
-  }
 });
 
 router.get("/", (req, res) => {
@@ -51,10 +53,7 @@ router.delete("/:id", validateUserId(), (req, res) => {
     .catch(err => next(err));
 });
 
-router.put("/:id", validateUserId(), (req, res) => {
-  if (!req.body.name) {
-    res.status(404).json({ message: "Please supply a name" });
-  }
+router.put("/:id", validateUserId(), validateUser(), (req, res) => {
   // do your magic!
   db.update(req.user.id, req.body)
     .then(user => {
