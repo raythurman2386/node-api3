@@ -6,13 +6,6 @@ const validateUser = () => {
     if (!req.body.name) {
       res.status(404).json({ message: "Please supply a name" });
     }
-
-    db.insert(req.body)
-      .then(user => {
-        req.newUser = user;
-        next();
-      })
-      .catch(err => next(err));
   };
 };
 
