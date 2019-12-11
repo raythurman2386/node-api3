@@ -17,4 +17,4 @@ const validateUserId = () => {
   };
 };
 
-module.export = validateUserId;
+module.exports = validateUserId;
