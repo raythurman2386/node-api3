@@ -1,10 +1,12 @@
 // @ts-nocheck
 const express = require("express");
 const db = require("./userDb");
+const posts = require("../posts/postDb");
 const validateUserId = require("../../middleware/validateUserId");
 const validateUser = require("../../middleware/validateUser");
+const { validatePost } = require("../../middleware/validatePost");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.post("/", validateUser(), (req, res) => {
   // do your magic!
@@ -16,9 +18,13 @@ router.post("/", validateUser(), (req, res) => {
     .catch(err => next(err));
 });
 
-router.post("/:id/posts", validateUserId(), (req, res) => {
-  // TODO
-  // do your magic!
+router.post("/:id/posts", validateUserId(), validatePost(), (req, res) => {
+  posts
+    .insert({ ...req.body, user_id: req.params.id })
+    .then(post => {
+      res.status(201).json(post);
+    })
+    .catch(err => next(err));
 });
 
 router.get("/", (req, res) => {
