@@ -5,6 +5,9 @@ const validateUser = () => {
     // do your magic!
     if (!req.body.name) {
       res.status(404).json({ message: "Please supply a name" });
+    } else {
+      req.userName = req.body.name;
+      next();
     }
   };
 };
