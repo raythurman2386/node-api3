@@ -3,7 +3,7 @@ const db = require("../routes/posts/postDb");
 const validatePost = () => {
   return (req, res, next) => {
     // do your magic!
-    if (!req.body) {
+    if (!req.body.text) {
       res.status(404).json({ message: "Please supply a post" });
     }
   };
