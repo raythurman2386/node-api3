@@ -6,15 +6,21 @@ const validatePost = () => {
     if (!req.body.text) {
       res.status(404).json({ message: "Please supply a post" });
     }
+
+    next();
   };
 };
 
 const validatePostId = () => {
   return (req, res, next) => {
     db.getById(req.params.id)
-      .then(postId => {
-        req.postId = postId;
-        next();
+      .then(post => {
+        if (post) {
+          req.post = post;
+          next();
+        } else {
+          res.status(400).json({ message: "That Id does not exist" });
+        }
       })
       .catch(err => next(err));
   };
