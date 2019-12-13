@@ -1,3 +1,4 @@
+// @ts-nocheck
 const postRouter = require("express").Router({ mergeParams: true });
 const db = require("./postDb");
 
