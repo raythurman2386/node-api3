@@ -5,7 +5,7 @@ const { routeError, serverError } = require("./middleware/errors");
 
 const server = express();
 
-server.use(express.json());
+// server.use(express.json());
 middleware(server);
 routes(server);
 server.use(routeError());
