@@ -7,6 +7,7 @@ module.exports = server => {
   server.use(helmet());
   server.use(express());
   server.use(express.json());
+  server.use(express.static("public"));
   server.use(cors());
   server.use(logger());
 };
