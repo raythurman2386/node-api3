@@ -14,7 +14,7 @@ import {
 } from "../actions/postActions";
 
 const initialState = {
-  isFetching: false,
+  isLoading: false,
   postsData: [],
   errors: null
 };
@@ -22,29 +22,94 @@ const initialState = {
 export const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_POSTS_START:
-      return state;
+      return {
+        ...state,
+        isLoading: true,
+        postsData: [],
+        errors: ""
+      };
     case FETCH_POSTS_SUCCESS:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: action.payload,
+        errors: ""
+      };
     case FETCH_POSTS_ERROR:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: [],
+        errors: action.payload
+      };
     case ADD_POST_START:
-      return state;
+      return {
+        ...state,
+        isLoading: true,
+        postsData: [],
+        errors: ""
+      };
     case ADD_POST_SUCCESS:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: [...state.postsData, action.payload],
+        errors: ""
+      };
     case ADD_POST_ERROR:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: [],
+        errors: action.payload
+      };
     case UPDATE_POST_START:
-      return state;
+      return {
+        ...state,
+        isLoading: true,
+        postsData: [],
+        errors: ""
+      };
     case UPDATE_POST_SUCCESS:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: [
+          state.postsData.filter(post => post.id !== action.payload.id),
+          action.payload
+        ],
+        errors: ""
+      };
     case UPDATE_POST_ERROR:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: [],
+        errors: action.payload
+      };
     case DELETE_POST_START:
-      return state;
+      return {
+        ...state,
+        isLoading: true,
+        postsData: [],
+        errors: ""
+      };
     case DELETE_POST_SUCCESS:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: state.postsData.filter(
+          post => post.id !== action.payload.id
+        ),
+        errors: ""
+      };
     case DELETE_POST_ERROR:
-      return state;
+      return {
+        ...state,
+        isLoading: false,
+        postsData: [],
+        errors: action.payload
+      };
     default:
       return state;
   }
