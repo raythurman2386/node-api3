@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { axiosConfig as axios } from "../../utils/axiosConfig";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPosts } from "../../actions/postActions";
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(state => state.postsData);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios()
-      .get("/api/posts")
-      .then(res => setPosts(res.data))
-      .catch(err => console.log(err.response));
-  }, []);
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   return (
     <div>
       <h1>Posts</h1>
-      {posts.map(post => (
-        <p key={post.id}>{post.text}</p>
-      ))}
+      {posts && posts.map(post => <p key={post.id}>{post.text}</p>)}
     </div>
   );
 };

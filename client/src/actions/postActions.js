@@ -8,7 +8,7 @@ export const FETCH_POSTS_ERROR = "FETCH_POSTS_ERROR";
 export const fetchPosts = () => dispatch => {
   dispatch({ type: FETCH_POSTS_START });
   axios()
-    .get("/api/users")
+    .get("/api/posts")
     .then(res => dispatch({ type: FETCH_POSTS_SUCCESS, payload: res.data }))
     .catch(err => dispatch({ type: FETCH_POSTS_ERROR, payload: err.response }));
 };
