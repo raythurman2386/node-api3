@@ -1,15 +1,23 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 
-function App() {
+// Components
+import NavBar from "./components/navbar";
+import Home from "./components/home";
+import Users from "./components/users";
+import Posts from "./components/posts";
+import UploadImage from "./components/form";
+
+function App(props) {
   return (
     <div className="App">
-      <h1>Hello World</h1>;<h1>Upload Image</h1>
-      {/* Skyelars image upload challenge */}
-      <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" accept="image/*" name="photo" />
-        <input type="submit" value="upload" />
-      </form>
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/users" component={Users} />
+        <Route exact path="/posts" component={Posts} />
+        <Route exact path="/upload" component={UploadImage} />
+      </Switch>
     </div>
   );
 }
