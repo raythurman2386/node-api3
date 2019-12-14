@@ -6,7 +6,7 @@ const UploadImage = () => {
     <Container fluid>
       <h1>Upload Image</h1>
       {/* Skyelars image upload challenge */}
-      <form action="/upload" method="post" enctype="multipart/form-data">
+      <form action="/upload" method="post" encType="multipart/form-data">
         <Form.Group controlId="imageUploader">
           <Form.Control type="file" accept="image/*" name="photo" />
           <Button type="submit" variant="danger">
