@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { axiosConfig as axios } from "../../utils/axiosConfig";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUsers } from "../../actions/userActions";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const users = useSelector(state => state.usersData);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    axios()
-      .get("/api/users")
-      .then(res => setUsers(res.data))
-      .catch(err => console.log(err.response));
-  }, []);
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   return (
     <div>
       <h1>Users</h1>
-      {users.map(user => (
-        <p key={user.id}>{user.name}</p>
-      ))}
+      {users && users.map(user => <p key={user.id}>{user.name}</p>)}
     </div>
   );
 };
