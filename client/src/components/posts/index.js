@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import { fetchPosts } from "../../actions/postActions";
 
-const Posts = () => {
-  const posts = useSelector(state => state.postsData);
-  const dispatch = useDispatch();
+const Posts = ({ posts, fetchPosts }) => {
+  // const posts = useSelector(state => state.postsData);
+  // const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPosts());
-  }, [dispatch]);
+    fetchPosts();
+  }, [fetchPosts]);
 
   return (
     <div>
@@ -18,4 +18,8 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+const mapStateToProps = state => {
+  return { posts: state.postsData };
+};
+
+export default connect(mapStateToProps, { fetchPosts })(Posts);
