@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../../actions/userActions";
 
 const Users = () => {
-  const users = useSelector(state => state.usersData);
+  const users = useSelector(state => state.userReducer.usersData);
   const isLoading = useSelector(state => state.isLoading);
   const dispatch = useDispatch();
 
