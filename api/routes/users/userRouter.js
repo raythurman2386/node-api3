@@ -1,5 +1,5 @@
 // @ts-nocheck
-const userRouter = require("express").Router({ mergeParams: true });
+const userRouter = require("express").Router();
 const db = require("./userDb");
 const posts = require("../posts/postDb");
 const validateUserId = require("../../middleware/validateUserId");
@@ -35,9 +35,10 @@ userRouter
       .catch(err => next(err));
   })
 
-  .get("/:id", validateUserId(), (req, res) => {
-    // do your magic!
-    res.json(req.user);
+  .get("/:id", validateUserId(), (req, res, next) => {
+    db.getById(req.user.id)
+      .then(user => res.status(200).json(user))
+      .catch(err => next(err));
   })
 
   .get("/:id/posts", validateUserId(), (req, res, next) => {

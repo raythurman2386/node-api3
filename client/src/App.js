@@ -16,7 +16,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/users" component={Users} />
-        <Route exact paty="/users/:id" component={UserDetails} />
+        <Route exact path="/users/:id" component={UserDetails} />
         <Route exact path="/posts" component={Posts} />
         <Route exact path="/upload" component={UploadImage} />
       </Switch>
