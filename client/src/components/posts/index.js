@@ -5,7 +5,7 @@ import { fetchPosts } from "../../actions/postActions";
 const Posts = ({ posts, fetchPosts }) => {
   useEffect(() => {
     fetchPosts();
-  }, [fetchPosts, posts]);
+  }, [fetchPosts]);
 
   return (
     <div>
