@@ -6,6 +6,37 @@ const validateUserId = require("../../middleware/validateUserId");
 const validateUser = require("../../middleware/validateUser");
 const { validatePost } = require("../../middleware/validatePost");
 
+// Get all users
+const getUsers = async (req, res, next) => {
+  // do your magic!
+  try {
+    const users = await db.get();
+    return res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get user by id
+const getUserById = async (req, res, next) => {
+  try {
+    const user = await db.getById(req.user.id);
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Get users posts
+
+// Add a user
+
+// add a user post
+
+// Update a user
+
+// delete a user
+
 userRouter
 
   .post("/", validateUser(), (req, res, next) => {
@@ -26,14 +57,14 @@ userRouter
       .catch(err => next(err));
   })
 
-  .get("/", (req, res, next) => {
-    // do your magic!
-    db.get()
-      .then(users => {
-        res.status(200).json(users);
-      })
-      .catch(err => next(err));
-  })
+  // .get("/", (req, res, next) => {
+  //   // do your magic!
+  //   db.get()
+  //     .then(users => {
+  //       res.status(200).json(users);
+  //     })
+  //     .catch(err => next(err));
+  // })
 
   .get("/:id", validateUserId(), (req, res, next) => {
     db.getById(req.user.id)
