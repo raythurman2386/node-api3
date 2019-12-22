@@ -28,8 +28,26 @@ const getUserById = async (req, res, next) => {
 };
 
 // Get users posts
+const getUsersPost = async (req, res, next) => {
+  // do your magic!
+  try {
+    const userPosts = await db.getUserPosts(req.user.id);
+    return res.status(200).json(userPosts);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // Add a user
+const addUser = async (req, res, next) => {
+  // do your magic!
+  try {
+    const newUser = await db.insert({ name: req.userName });
+    return res.status(200).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+};
 
 // add a user post
 
@@ -39,14 +57,7 @@ const getUserById = async (req, res, next) => {
 
 userRouter
 
-  .post("/", validateUser(), (req, res, next) => {
-    // do your magic!
-    db.insert({ name: req.userName })
-      .then(user => {
-        res.json(user);
-      })
-      .catch(err => next(err));
-  })
+  .post("/", validateUser(), addUser)
 
   .post("/:id/posts", validateUserId(), validatePost(), (req, res, next) => {
     posts
@@ -57,29 +68,11 @@ userRouter
       .catch(err => next(err));
   })
 
-  // .get("/", (req, res, next) => {
-  //   // do your magic!
-  //   db.get()
-  //     .then(users => {
-  //       res.status(200).json(users);
-  //     })
-  //     .catch(err => next(err));
-  // })
+  .get("/", getUsers)
 
-  .get("/:id", validateUserId(), (req, res, next) => {
-    db.getById(req.user.id)
-      .then(user => res.status(200).json(user))
-      .catch(err => next(err));
-  })
+  .get("/:id", validateUserId(), getUserById)
 
-  .get("/:id/posts", validateUserId(), (req, res, next) => {
-    // do your magic!
-    db.getUserPosts(req.user.id)
-      .then(userPosts => {
-        res.status(200).json(userPosts);
-      })
-      .catch(err => next(err));
-  })
+  .get("/:id/posts", validateUserId(), getUsersPost)
 
   .delete("/:id", validateUserId(), (req, res) => {
     // do your magic!
